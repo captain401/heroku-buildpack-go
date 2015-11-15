@@ -131,6 +131,7 @@ GOROOT=$cache/$ver/go export GOROOT
 GOPATH=$build/Godeps/_workspace export GOPATH
 PATH=$GOROOT/bin:$PATH
 
+env | grep ^GO
 
 if ! (test -d $build/Godeps || (which hg >/dev/null && which bzr >/dev/null))
 then
