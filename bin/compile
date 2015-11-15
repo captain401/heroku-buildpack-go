@@ -72,6 +72,8 @@ finished() {
     echo "done"
 }
 
+pkgs="./..."
+
 if test -f $build/Godeps
 then
     warn "Deprecated, old ./Godeps file found!"
@@ -89,6 +91,7 @@ then
     fi
     name=$(<$build/Godeps/Godeps.json jq -r .ImportPath)
     ver=$(<$build/Godeps/Godeps.json jq -r .GoVersion)
+    pkgs=$(<$build/Godeps/Godeps.json jq -r 'if .Packages then .Packages | join(" ") else "." end')
 elif test -f $build/.godir
 then
     warn "Deprecated, .godir file found!"
@@ -171,8 +174,6 @@ then
     done
 fi
 
-pkgs="./..."
-
 if test "$GO15VENDOREXPERIMENT" = "1"
 then
   case $ver in
@@ -181,7 +182,6 @@ then
       warn "\$GO15VENDOREXPERIMENT=1. This is an experiment. Things may not work as expected."
       warn "See https://devcenter.heroku.com/articles/go-support#go-1-5-vendor-experiment for more info."
       warn ""
-      pkgs=$(<$build/Godeps/Godeps.json jq -r 'if .Packages then .Packages | join(" ") else "." end')
       if test ! -d "$build/vendor"
       then
         warn ""
