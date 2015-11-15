@@ -128,7 +128,7 @@ fi
 mkdir -p $build/bin
 GOBIN=$build/bin export GOBIN
 GOROOT=$cache/$ver/go export GOROOT
-GOPATH=$build/.heroku/go export GOPATH
+GOPATH=$build/Godeps/_workspace export GOPATH
 PATH=$GOROOT/bin:$PATH
 
 
@@ -152,10 +152,6 @@ then
         pip install bzr > /dev/null 2>&1
     finished
 fi
-
-p=$GOPATH/src/$name
-mkdir -p $p
-cp -R $build/* $p
 
 # Default to $SOURCE_VERSION environment variable
 GO_LINKER_VALUE=${SOURCE_VERSION}
