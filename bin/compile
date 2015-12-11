@@ -131,7 +131,7 @@ fi
 mkdir -p $build/bin
 GOBIN=$build/bin export GOBIN
 GOROOT=$cache/$ver/go export GOROOT
-GOPATH=$build/Godeps/_workspace export GOPATH
+GOPATH=$build/Godeps/_workspace:$build/go export GOPATH
 PATH=$GOROOT/bin:$PATH
 
 env | grep ^GO
